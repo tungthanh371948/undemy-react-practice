@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import { fetchAllUser } from '../services/UserService';
+import ReactPaginate from 'react-paginate';
 
 const TableUsers = (props) => {
 
@@ -19,9 +20,11 @@ const TableUsers = (props) => {
           setListUsers(res.data)
         }
     }
-    return(<>
+    const handlePageClick = () =>{
+      
+    }
 
-{}
+    return(<>
     <Table striped bordered hover>
       <thead>
         <tr>
@@ -44,6 +47,26 @@ const TableUsers = (props) => {
         
       </tbody>
     </Table>
+    <ReactPaginate
+        breakLabel="..."
+        nextLabel="next >"
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={5}
+        pageCount={69}
+        previousLabel="< previous"
+        pageClassName="page-item"
+        pageLinkClassName="page-link"
+        previousClassName='page-item'
+        previousLinkClassName='page-link'
+        nextClassName='page-item'
+        nextLinkClassName='page-link'
+        breakClassName='page-item'
+        breakLinkClassName='page-link'
+        containerClassName='pagination'
+        activeClassName='active'
+    
+      />
+      
     </>)
 }
 
