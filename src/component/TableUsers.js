@@ -6,22 +6,25 @@ import ReactPaginate from 'react-paginate';
 const TableUsers = (props) => {
 
     const [listUsers, setListUsers] = useState([]);
-
+    const [totalUsers, setTotalUsers] = useState(0);
+    const [totalPages, setTotalPages] = useState(0);
     useEffect(()=>{
         //call apis
         //dry
-        getUsers()
+        getUsers(1);
     },[])
 
-    const getUsers = async () => {
-        let res = await fetchAllUser(); 
+    const getUsers = async (page) => {
+        let res = await fetchAllUser(page); 
         console.log(">>> Check new res: ",res)
         if (res && res.data && res.data){
+          setTotalUsers(res.total)
           setListUsers(res.data)
+          setTotalPages(res.total_pages);
         }
     }
-    const handlePageClick = () =>{
-      
+    const handlePageClick = (event) =>{
+      getUsers(+event.selected+1)
     }
 
     return(<>
@@ -52,7 +55,7 @@ const TableUsers = (props) => {
         nextLabel="next >"
         onPageChange={handlePageClick}
         pageRangeDisplayed={5}
-        pageCount={69}
+        pageCount={totalPages}
         previousLabel="< previous"
         pageClassName="page-item"
         pageLinkClassName="page-link"
