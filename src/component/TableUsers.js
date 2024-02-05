@@ -3,6 +3,7 @@ import Table from 'react-bootstrap/Table';
 import { fetchAllUser } from '../services/UserService';
 import ReactPaginate from 'react-paginate';
 import ModalAddNew from './ModalAddNew';
+import ModalEditUser from './ModalEditUser';
 
 const TableUsers = (props) => {
   
@@ -13,12 +14,18 @@ const TableUsers = (props) => {
 
     const [isShowModalAddNew,setIsShowModalAddNew] = useState(false);
 
+    const [isShowModalEdit, setIsShowModalEdit] = useState(false);
+
   const handleClose = ()=>{
     setIsShowModalAddNew(false);
   }
 
   const handleUpdateTable = (user) =>{
     setListUsers([user, ...listUsers]);
+  }
+
+  const handleEdit =(user) =>{
+    console.log(user)
   }
 
     useEffect(()=>{
@@ -52,6 +59,7 @@ const TableUsers = (props) => {
           <th>Email</th>
           <th>First name</th>
           <th>Last name</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -62,6 +70,13 @@ const TableUsers = (props) => {
             <td>{item.email}</td>
             <td>{item.first_name}</td>
             <td>{item.last_name}</td>
+            <td>
+              <button 
+              className="btn btn-warning mx-3"
+              onClick={()=> handleEdit(item)}
+              >Edit</button>
+              <button className="btn btn-danger">Delete</button>
+            </td>
           </tr>)
         })}
         
@@ -91,6 +106,9 @@ const TableUsers = (props) => {
           handleClose={handleClose}
           handleUpdateTable = {handleUpdateTable}
           />
+        <ModalEditUser
+          show={isShowModalEdit}
+        />
       
     </>)
 }

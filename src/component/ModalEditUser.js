@@ -4,30 +4,19 @@ import Modal from 'react-bootstrap/Modal';
 import { PostCreateUser } from '../services/UserService';
 import { toast } from 'react-toastify';
 
-  const ModalAddNew = (props) =>{
-    const {show,handleClose,handleUpdateTable} = props;
+  const ModalEditUser = (props) =>{
+    const {show,handleClose} = props;
     const [name, setName] = useState("");
     const [job, setJob] = useState("");
 
-    const handleSaveUser = async () => {
-        let res = await PostCreateUser(name,job);
-        console.log(">>>Check res:", res)
-        if(res&&res.id){
-            handleClose();
-            setName('');
-            setJob('');
-            toast.success("A user is created succeed!");
-            handleUpdateTable({first_name: name, id: res.id});
-        }
-        else {
-            toast.error("An Error...")
-        }
-    }
+const handleEditUser =() =>{
+    
+}
     return ( 
         <>
           <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-              <Modal.Title>Add New User</Modal.Title>
+              <Modal.Title>Edit User</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <div className='body-add-new'>
@@ -55,8 +44,8 @@ import { toast } from 'react-toastify';
               <Button variant="secondary" onClick={handleClose}>
                 Close
               </Button>
-              <Button variant="primary" onClick={()=> handleSaveUser()}>
-                Save Changes
+              <Button variant="primary" onClick={()=> handleEditUser()}>
+                Comfirm
               </Button>
             </Modal.Footer>
           </Modal>
@@ -65,4 +54,4 @@ import { toast } from 'react-toastify';
   }
 
 
-export default ModalAddNew;
+export default ModalEditUser;
